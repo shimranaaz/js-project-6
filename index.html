@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>To-Do-List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            position: relative;
+            background-color: #000430;
+        }
+
+        .ball1 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(#061bf9, #08e2ff);
+            position: absolute;
+            transform: translate(-70px, 100px);
+
+        }
+
+        .ball2 {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            background: linear-gradient(#08e2ff, #061bf9);
+            position: absolute;
+            transform: translate(437px, -264px);
+        }
+
+        .ball3 {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(#08e2ff, #061bf9);
+            position: absolute;
+            transform: translate(50px, -160px);
+        }
+
+        .ball4 {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            background: linear-gradient(#08e2ff, #061bf9);
+            position: absolute;
+            transform: translate(391px, 104px);
+        }
+
+        .container {
+            backdrop-filter: blur(25px);
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid #828dff;
+            padding: 30px;
+            min-height: 30vh;
+            height: 370px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 480px;
+            color: #fff;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border: 2px solid #828dff;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 1.5em;
+            width: 180px;
+        }
+
+        .header .task-counter {
+            width: 80px;
+            height: 80px;
+            background: #828dff;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1em;
+            margin-left: 10px;
+        }
+
+        .progress-container {
+            width: 100%;
+            background: #e9ecef;
+            border-radius: 3px;
+            margin-top: 15px;
+        }
+
+        .progress-bar {
+            height: 7px;
+            width: 0;
+            background: #828dff;
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+
+        .input-container {
+            display: flex;
+            margin-bottom: 30px;
+
+        }
+
+        #new-task {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #828dff;
+            background-color: #171c48;
+            border-radius: 3px;
+            color: #ccc;
+            outline: none;
+        }
+
+        #add-task-button {
+            display: flex;
+            justify-content: center;
+            font-size: 25px;
+            padding: 4.5px;
+            width: 35px;
+            height: 35px;
+            background: #828dff;
+            color: white;
+            border: none;
+            border-radius: 50%;
+            margin-left: 5px;
+            cursor: pointer;
+        }
+
+        #add-task-button:hover {
+            background: #535dd0;
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        li {
+            background: #eee;
+            padding: 10px;
+            border: 1px solid #828dff;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            background-color: #171c48;
+            margin-bottom: 5px;
+            cursor: grab;
+        }
+
+        li.completed .task-text {
+            text-decoration: line-through;
+            color: #888;
+        }
+
+        .task-controls {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .task-text {
+            flex: 1;
+            margin-left: 0px;
+            position: relative;
+            display: inline-block;
+        }
+
+        button.edit {
+            background: transparent;
+            color: #828dff;
+            border: none;
+            font-size: 20px;
+        }
+
+        input.checkbox {
+            cursor: pointer;
+        }
+
+        button.delete {
+            background: transparent;
+            color: red;
+            border: none;
+            cursor: pointer;
+        }
+        @media only screen and (max-width: 480px) {
+            .container {
+                width: 80%;
+                padding: 15px;
+            }
+
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            #new-task {
+                font-size: 0.9em;
+            }
+
+            .task-counter {
+                width: 60px;
+                height: 60px;
+                font-size: 0.8em;
+            }
+
+            #add-task-button {
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+                padding: 2.5px;
+            }
+            .ball1 {
+                width: 110px;
+                height: 110px;
+                transform: translate(-30px, 125px);
+            }
+            .ball2 {
+                width: 110px;
+                height: 110px;
+                transform: translate(344px, -241px);
+            }
+
+            .ball3 {
+                width: 70px;
+                height: 70px;
+                transform: translate(39px, -145px);
+            }
+
+            .ball4 {
+                width: 70px;
+                height: 70px;
+                transform: translate(307px, 95px);
+            }
+        }
+        @media only screen and (max-width: 430px) {
+            .container {
+                width: 86%;
+                height: 360px;
+            }
+
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            #new-task {
+                font-size: 0.9em;
+            }
+
+            .task-counter {
+                width: 60px;
+                height: 60px;
+                font-size: 0.9em;
+            }
+
+            #add-task-button {
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+                padding: 2.5px;
+            }
+            .ball1 {
+                width: 110px;
+                height: 110px;
+                transform: translate(-30px, 125px);
+            }
+            .ball2 {
+                width: 110px;
+                height: 110px;
+                transform: translate(309px, -241px);
+            }
+
+            .ball3 {
+                width: 70px;
+                height: 70px;
+                transform: translate(39px, -145px);
+            }
+
+            .ball4 {
+                width: 70px;
+                height: 70px;
+                transform: translate(290px, 95px);
+            }
+        }
+        @media only screen and (max-width: 414px) {
+            .container {
+                width: 86%;
+                height: 360px;
+            }
+
+            .header h1 {
+                font-size: 1.2em;
+            }
+
+            #new-task {
+                font-size: 0.9em;
+            }
+
+            .task-counter {
+                width: 60px;
+                height: 60px;
+                font-size: 0.9em;
+            }
+
+            #add-task-button {
+                font-size: 20px;
+                width: 30px;
+                height: 30px;
+                padding: 2.5px;
+            }
+            .ball1 {
+                width: 110px;
+                height: 110px;
+                transform: translate(-30px, 125px);
+            }
+            .ball2 {
+                width: 110px;
+                height: 110px;
+                transform: translate(301px, -241px);
+            }
+
+            .ball3 {
+                width: 70px;
+                height: 70px;
+                transform: translate(39px, -145px);
+            }
+
+            .ball4 {
+                width: 70px;
+                height: 70px;
+                transform: translate(290px, 95px);
+            }
+        }
+        @media only screen and (max-width: 375px) {
+            .container {
+                width: 86%;
+            }
+
+            .header h1 {
+                font-size: 1.1em;
+            }
+
+            .task-counter {
+                width: 50px;
+                height: 50px;
+                font-size: 0.7em;
+            }
+
+            #add-task-button {
+                font-size: 18px;
+                width: 28px;
+                height: 28px;
+            }
+            .ball1 {
+                width: 110px;
+                height: 110px;
+                transform: translate(-30px, 125px);
+            }
+            .ball2 {
+                width: 110px;
+                height: 110px;
+                transform: translate(266px, -241px);
+            }
+
+            .ball3 {
+                width: 70px;
+                height: 70px;
+                transform: translate(39px, -145px);
+            }
+
+            .ball4 {
+                width: 70px;
+                height: 70px;
+                transform: translate(260px, 95px);
+            }
+          
+        }
+        @media only screen and (max-width: 344px) {
+            .container {
+                width: 100%;
+            }
+
+            .header h1 {
+                font-size: 1.1em;
+            }
+
+            .task-counter {
+                width: 50px;
+                height: 50px;
+                font-size: 0.7em;
+            }
+
+            #add-task-button {
+                font-size: 18px;
+                width: 28px;
+                height: 28px;
+            }
+            .ball1 {
+                width: 110px;
+                height: 110px;
+                transform: translate(-30px, 125px);
+            }
+            .ball2 {
+                width: 110px;
+                height: 110px;
+                transform: translate(260px, -230px);
+            }
+
+            .ball3 {
+                width: 70px;
+                height: 70px;
+                transform: translate(39px, -145px);
+            }
+
+            .ball4 {
+                width: 70px;
+                height: 70px;
+                transform: translate(260px, 95px);
+            }
+          
+        }
+    </style>
+</head>
+
+<body>
+    <div class="balls">
+        <div class="ball1"></div>
+        <div class="ball2"></div>
+        <div class="ball3"></div>
+        <div class="ball4"></div>
+    </div>
+    <div class="container">
+        <div class="header">
+            <h1>To-Do List
+                <div class="progress-container">
+                    <div class="progress-bar" id="progress-bar"></div>
+                </div>
+            </h1>
+            <div class="task-counter" id="task-counter">0/0</div>
+
+        </div>
+        <div class="input-container">
+            <input type="text" id="new-task" placeholder="Add a new task...">
+            <button id="add-task-button">+</button>
+        </div>
+        <ul id="task-list"></ul>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>
